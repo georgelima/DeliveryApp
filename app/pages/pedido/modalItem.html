@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar primary>
+    <ion-title>{{ item.produto }}</ion-title>
+    <ion-buttons end>
+		<button royal outline (click)="voltar()"> 
+	        <ion-icon name="close"></ion-icon>
+	    </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list no-lines>
+    <ion-item>
+      Preço: {{ item.preco }}
+    </ion-item>
+  </ion-list>
+</ion-content>

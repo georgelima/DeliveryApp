@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar primary>
+    <ion-title>Informações para Entrega: </ion-title>
+    <ion-buttons end>
+		<button royal outline (click)="voltar()"> 
+	      	Voltar
+	        <ion-icon name="close"></ion-icon>
+	    </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col width-100>
+        <ion-item>
+          <ion-label floating>Rua: </ion-label>
+          <ion-input id="campoEndereco" type="text" clearInput [(ngModel)]="rua" ></ion-input>
+          
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-33>
+        <ion-item>
+          <ion-label floating>Bairro: </ion-label>
+          <ion-input type="text" [(ngModel)]="bairro"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col width-33>
+        <ion-item>
+          <ion-label floating>Número: </ion-label>
+          <ion-input type="number" [(ngModel)]="numero"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col width-33>
+        <ion-item>
+          <ion-label floating>Cidade: </ion-label>
+          <ion-input type="text" [(ngModel)]="cidade"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-100>
+        <ion-item>
+          <ion-label floating>Informações Adicionais: </ion-label>
+          <ion-textarea rows="5" [(ngModel)]="infoAdicionais"></ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col width-50>
+        <button block (click)="salvaEndereco()">
+          Salvar Endereço
+        </button>
+      </ion-col>
+      <ion-col width-50>
+        <button block (click)="next()">
+           Próximo
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

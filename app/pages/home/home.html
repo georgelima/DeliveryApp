@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-navbar primary>
+    <ion-buttons start>
+      <button facebook solid large *ngIf="auth.isAuthenticated()" (click)="fazerPedido()"> 
+      	Fazer Pedido
+        <ion-icon name="pizza"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Parnaíba Delivery</ion-title>
+    <ion-buttons end *ngIf="!auth.isAuthenticated()">
+    	<button (click)="entrar()">Entrar</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+	<!-- ID PROJECT: 423834709081
+	KEY API: AIzaSyCI4xMTDPngziQ9Yb2Az2GaweioRwbO_-I -->
+	<ion-slides pager>
+		<ion-slide style="background-color: white">
+	    <h2>Slide 1</h2>
+	  </ion-slide>
+
+	  <ion-slide style="background-color: orange">
+	    <h2>Slide 2</h2>
+	  </ion-slide>
+
+	  <ion-slide style="background-color: black">
+	    <h2>Slide 3</h2>
+	  </ion-slide>
+	</ion-slides>
+</ion-content>
+<ion-footer>
+	<ion-toolbar primary *ngIf="auth.isAuthenticated()">
+		<!--BARRA CASUAL-->
+		<ion-row *ngIf="user.get('tipo') === 1">
+			<ion-col width-10>
+				<ion-avatar>
+					<img src="{{ user.details.image || null }}" />
+				</ion-avatar>
+			</ion-col>
+			<ion-col width-75>
+				<ion-title>
+					{{ user.details.name || user.details.email }}
+				</ion-title>
+			</ion-col>
+			<ion-buttons end>
+		    	<button (click)="sair()" outline>Sair</button>
+		  </ion-buttons>
+		</ion-row>
+		<!--BARRA FACEBOOK-->
+		<ion-row *ngIf="user.get('tipo') === 0">
+			<ion-col width-10>
+				<ion-avatar>
+					<img src="{{ user.social.facebook.data.profile_picture || null }}" />
+				</ion-avatar>
+			</ion-col>
+			<ion-col width-75>
+				<ion-title>
+					{{ user.social.facebook.data.full_name || user.social.facebook.data.email }}
+				</ion-title>
+			</ion-col>
+			<ion-buttons end>
+		    	<button (click)="sair()" outline>Sair</button>
+		  </ion-buttons>
+		</ion-row>
+	</ion-toolbar>
+</ion-footer>

@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar primary>
+    <ion-title text-center>Parnaíba Delivery</ion-title>
+    <ion-buttons end>
+      <button royal outline (click)="voltar()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-item>
+      <ion-label>Email: </ion-label>
+      <ion-input type="email" [(ngModel)]="email" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Senha: </ion-label>
+      <ion-input type="password" [(ngModel)]="pass" required></ion-input>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col width-50>
+          <button [disabled]="!email || !pass" secondary full (click)="signUp()"> 
+              Cadastre-se
+              <ion-icon name="contract"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col width-50>
+          <button [disabled]="!email || !pass" primary full (click)="loginCasual()">
+            Entrar
+            <ion-icon name="checkmark-circle"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <button item-right full facebook (click)="loginFace()">
+          Entrar com o Facebook
+          <ion-icon name="logo-facebook"></ion-icon>
+        </button>
+      </ion-row>
+    </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col><button full (click) = "requestPass()">Esqueci minha senha</button></ion-col>
+  </ion-row>
+</ion-footer>

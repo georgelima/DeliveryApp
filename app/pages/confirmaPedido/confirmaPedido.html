@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar primary>
+    <ion-title>Confirmar Pedido: </ion-title>
+    <ion-buttons end>
+		<button outine navPop> 
+	      	Voltar
+	        <ion-icon name="close"></ion-icon>
+	    </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-row>
+      <ion-col width-75>
+        <ion-card-header>
+          <strong>Pedido:</strong> 
+        </ion-card-header>
+        <ion-list>
+          <button ion-item *ngFor="let item of pedido; let i =  index">
+            {{ item.produto }}
+          </button>
+        </ion-list>
+      </ion-col>
+      <ion-col width-25>
+        <ion-card-header>
+          <strong>Valor:</strong> 
+        </ion-card-header>
+        <ion-list>
+          <button ion-item *ngFor="let item of pedido; let i =  index">
+            {{ 'R$ ' + item.preco }}
+          </button>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  <ion-list>
+    <ion-list-header>
+      Rua: 
+    </ion-list-header>
+    <ion-item> {{ endereco.rua+ ', ' + endereco.numero }} </ion-item>
+    <ion-list-header>
+      Bairro: 
+    </ion-list-header>
+    <ion-item> {{ endereco.bairro + ' - ' + endereco.cidade }} </ion-item>
+    <ion-list-header>
+      Informações Adicionais: 
+    </ion-list-header>
+    <ion-item> {{ endereco.infoAdicionais }} </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons end>
+    	<button primary outline (click)="confirma()">Confirmar</button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

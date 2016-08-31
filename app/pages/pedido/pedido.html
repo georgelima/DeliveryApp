@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar primary>
+    <ion-title>Fazer Pedido</ion-title>
+    <ion-buttons end>
+		<button royal outline (click)="voltar()"> 
+	      	Voltar
+	        <ion-icon name="close"></ion-icon>
+	    </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+	<ion-list>
+	  <ion-item>
+	    <ion-label>Estabelecimento</ion-label>
+	    <ion-select [(ngModel)]="estabelecimento" cancelText="Cancelar" okText="OK" (ionChange)="carregaCardapio($event)">
+	      <ion-option *ngFor="let estabelecimento of estabelecimentos; let i = index" value="{{ estabelecimento.id }}">{{ estabelecimento.nome  }}</ion-option>
+	    </ion-select>
+	  </ion-item>
+	</ion-list>
+	<ion-searchbar
+	  [(ngModel)]="pedidoBuscado"
+	  [showCancelButton]="false"
+	  placeholder="O que você quer?"
+		*ngIf="estabelecimento">
+	</ion-searchbar>
+	<ion-list *ngIf="mostraCardapio">
+		<ion-item *ngFor="let item of (cardapios | filtrapedido:pedidoBuscado); let i = index">
+			<button round item-right (click)="verItem(item)">
+				<ion-icon name="information-circle"></ion-icon>
+			</button>
+			<button item-right primary round (click)="adicionaItem(item)">
+				Adicionar
+				<ion-icon name="add-circle"></ion-icon>
+			</button>
+
+			{{ item.produto }}
+		</ion-item>
+	</ion-list>
+	<ion-row *ngIf="pedido.length > 0">
+		<ion-col width-50>
+			<button primary medium block (click)="verPedido()">Ver Carrinho <ion-icon name="cart"></ion-icon> </button>
+		</ion-col>
+		<ion-col width-50>
+			<button primary medium block (click)="next()">Próximo <ion-icon name="checkmark"></ion-icon></button>
+		</ion-col>
+	</ion-row>
+</ion-content>
+<ion-footer>
+	<ion-toolbar primary *ngIf="auth.isAuthenticated()">
+		<!--BARRA CASUAL-->
+		<ion-row *ngIf="user.get('tipo') === 1">
+			<ion-col width-10>
+				<ion-avatar>
+					<img src="{{ user.details.image || null }}" />
+				</ion-avatar>
+			</ion-col>
+			<ion-col width-75>
+				<ion-title>
+					{{ user.details.name || user.details.email }}
+				</ion-title>
+			</ion-col>
+			<ion-buttons end>
+		    	<button (click)="sair()" outline>Sair</button>
+		  </ion-buttons>
+		</ion-row>
+		<!--BARRA FACEBOOK-->
+		<ion-row *ngIf="user.get('tipo') === 0">
+			<ion-col width-10>
+				<ion-avatar>
+					<img src="{{ user.social.facebook.data.profile_picture || null }}" />
+				</ion-avatar>
+			</ion-col>
+			<ion-col width-75>
+				<ion-title>
+					{{ user.social.facebook.data.full_name || user.social.facebook.data.email }}
+				</ion-title>
+			</ion-col>
+			<ion-buttons end>
+		    	<button (click)="sair()" outline>Sair</button>
+		  </ion-buttons>
+		</ion-row>
+	</ion-toolbar>
+</ion-footer>

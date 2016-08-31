@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar primary>
+    <ion-title>Seu Pedido: </ion-title>
+    <ion-buttons end>
+		<button royal outline (click)="voltar()"> 
+	        <ion-icon name="close"></ion-icon>
+	    </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>  
+  <ion-card>
+    <ion-card-header>
+      <strong>Pedido:</strong> 
+    </ion-card-header>
+    <ion-list>
+      <button ion-item *ngFor="let item of pedido; let i =  index">
+        {{ item.produto }}
+        
+        <button (click)="removeItem(item, i)" item-right>
+          Remover
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </button>
+    </ion-list>
+  </ion-card>
+</ion-content>

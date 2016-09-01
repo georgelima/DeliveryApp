@@ -8,7 +8,7 @@ import { Auth, User } from '@ionic/cloud-angular';
 import { ConfirmaPedido } from '../confirmaPedido/confirmaPedido';
 
 @Component({
-  templateUrl: 'build/pages/pedido/pedidoUser.html'
+  templateUrl: 'build/pages/pedido/pedidoStage2/pedidoUser.html'
 })
 
 export class PedidoUserPage {

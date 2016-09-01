@@ -4,7 +4,7 @@ import { NavParams, NavController } from 'ionic-angular';
 import { User, Auth } from '@ionic/cloud-angular';
 
 @Component({
-  templateUrl: 'build/pages/confirmaPedido/confirmaPedido.html'
+  templateUrl: 'build/pages/pedido/confirmaPedido/confirmaPedido.html'
 })
 
 export class ConfirmaPedido {

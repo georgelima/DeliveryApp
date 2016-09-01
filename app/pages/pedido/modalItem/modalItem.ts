@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavParams, NavController } from 'ionic-angular';
 
 @Component({
-  templateUrl: 'build/pages/pedido/modalItem.html'
+  templateUrl: 'build/pages/pedido/modalItem/modalItem.html'
 })
 
 export class ItemModal {

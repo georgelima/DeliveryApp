@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, ModalController, ToastController } from 'ionic-angular';
-import { EstabelecimentoService } from '../../services/estabelecimento/estabelecimento';
-import { PedidoFilter } from './pipePedido';
-import { ItemModal } from './modalItem';
-import { PedidoUserPage } from './pedidoUser';
-import { ModalPedido } from './modalPedido';
+import { EstabelecimentoService } from '../../../services/estabelecimento/estabelecimento';
+import { PedidoFilter } from '../../../pipes/pipePedido';
+import { ItemModal } from '../modalItem/modalItem';
+import { PedidoUserPage } from '../pedidoStage2/pedidoUser';
+import { ModalPedido } from '../modalPedido/modalPedido';
 
 import { Auth, User } from '@ionic/cloud-angular';
 
 @Component({
-	templateUrl: 'build/pages/pedido/pedido.html',
+	templateUrl: 'build/pages/pedido/pedidoMain/pedido.html',
 	providers:[EstabelecimentoService],
 	pipes:[PedidoFilter]
 })

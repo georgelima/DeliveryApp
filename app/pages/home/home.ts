@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, ModalController } from 'ionic-angular';
 import { Auth, User, Push, PushToken } from '@ionic/cloud-angular';
-import { PedidoPage } from '../pedido/pedido';
+import { PedidoPage } from '../pedido/pedidoMain/pedido';
 
 import { ModalLogin } from '../autenticacao/modalLogin';
 

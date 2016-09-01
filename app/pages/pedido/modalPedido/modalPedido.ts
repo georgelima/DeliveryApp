@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 
 @Component({
-  templateUrl: 'build/pages/pedido/modalPedido.html'
+  templateUrl: 'build/pages/pedido/modalPedido/modalPedido.html'
 })
 
 export class ModalPedido {

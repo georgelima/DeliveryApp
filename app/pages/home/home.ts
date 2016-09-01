@@ -20,7 +20,7 @@ export class HomePage {
     
     modal.onDidDismiss((data) => { 
       this.user = data.user;
-      this.auth = data.auth;
+      // this.auth = data.auth;
     });
     
     modal.present();

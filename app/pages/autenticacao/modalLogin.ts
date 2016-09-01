@@ -31,7 +31,9 @@ export class ModalLogin {
   loginFace(){
     this.auth.login('facebook').then((data) => {
       this.user.set('tipo', 0);
-      this.user.save().then(() => this.viewCtrl.dismiss({user: this.user, auth: this.auth}));
+      this.user.save().then(() => this.user.load().then(() => {
+        this.viewCtrl.dismiss({user: this.user, auth: this.auth})
+      }));
     }, (err) => { alert("Houve um erro, tente novamente!"); });
   }
 
@@ -51,8 +53,7 @@ export class ModalLogin {
 
       this.auth.login('basic', details).then((token) => { 
         carregamento.dismiss().then(() => {
-          this.user.set('tipo', 1);
-          this.user.save().then(() => this.viewCtrl.dismiss({ user: this.user, auth: this.auth }));
+          this.viewCtrl.dismiss({ user: this.user, auth: this.auth });
         }); 
       }, (err) => {
         let alerta = this.alertCtrl.create({
@@ -84,11 +85,27 @@ export class ModalLogin {
 
     this.auth.signup(details).then(() => {
       
-      this.auth.login("basic", details).then(token => {
+      this.auth.login('basic', details).then((token) => { 
         carregamento.dismiss().then(() => {
-          this.viewCtrl.dismiss(this.user);
+          
+          this.user.set('tipo', 1);
+          this.user.save().then(() => {
+            this.user.load().then(() => {
+              this.viewCtrl.dismiss({ user: this.user, auth: this.auth })
+            })
+          });
+        
+        }); 
+      }, (err) => {
+        let alerta = this.alertCtrl.create({
+            title: 'Ops',
+            subTitle: 'Verifique suas credenciais!',
+            buttons: ['OK']
         });
-      })
+        carregamento.dismiss().then(() => {
+          alerta.present();
+        }); 
+      });
 
 
     }, err => {

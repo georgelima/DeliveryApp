@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar primary>
-    <ion-buttons start>
-      <button facebook solid large *ngIf="auth.isAuthenticated()" (click)="fazerPedido()"> 
+    <ion-buttons start *ngIf="auth.isAuthenticated()">
+      <button facebook solid large (click)="fazerPedido()"> 
       	Fazer Pedido
         <ion-icon name="pizza"></ion-icon>
       </button>

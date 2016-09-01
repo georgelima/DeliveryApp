@@ -2,7 +2,7 @@
 
 module.exports = function (app){
 	let controller = {};
-
+	
 	let Enterprise = app.models.estabelecimento;
 
 	controller.getEnterprises = (req, res, next) => {

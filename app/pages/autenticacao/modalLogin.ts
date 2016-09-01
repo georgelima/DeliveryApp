@@ -31,7 +31,7 @@ export class ModalLogin {
   loginFace(){
     this.auth.login('facebook').then((data) => {
       this.user.set('tipo', 0);
-      this.user.save().then(() => this.viewCtrl.dismiss(this.user));
+      this.user.save().then(() => this.viewCtrl.dismiss({user: this.user, auth: this.auth}));
     }, (err) => { alert("Houve um erro, tente novamente!"); });
   }
 

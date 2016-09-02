@@ -8,10 +8,10 @@ import { HomePage } from './pages/home/home';
 
 const cloudSettings: CloudSettings = {
   'core': {
-    'app_id': '3041fbbf',
+    'app_id': '-',
   },
   'push': {
-    'sender_id': '423834709081',
+    'sender_id': '-', // ID GCM
     'pluginConfig': {
       'ios': {
         'badge': true,

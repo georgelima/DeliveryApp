@@ -4,7 +4,6 @@ module.exports = function (app){
 	const mongoose = require('mongoose');
 	let _schema = new mongoose.Schema({
 		'name': String,
-		'picture': String,
 		'address': {
 			'street': String,
 			'number': {
@@ -14,8 +13,15 @@ module.exports = function (app){
 			'neighborhood': String,
 			'city': String
 		},
+		'contact': {
+			'phone': String,
+			'email': String
+		},
 		'menu':[{
-			'name': String, 'price': Number, 'description': String, 'type': String
+			'name': String, 'price': Number, 'description': String, 'kind': String
+		}],
+		'pedidos': [{
+			'idUser': String, 'itens': [], 'endereco': {} , 'status': String 
 		}],
 		'createdAt': {
 			'type': Date,

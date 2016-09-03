@@ -5,11 +5,11 @@ import { Pipe, PipeTransform, Injectable } from '@angular/core';
 })
 @Injectable()
 export class PedidoFilter implements PipeTransform {
-  transform(cardapio: any[], value: any): any {
+  transform(cardapio: any[], value: any): any {    
     if (value === undefined || value === '') {
       return cardapio;
     }else {
-      return cardapio.filter(item => item.produto.toLowerCase().indexOf(value.toLowerCase()) !== -1);
+      return cardapio.filter(item => item.name.toLowerCase().indexOf(value.toLowerCase()) !== -1);
     }
   }
 }

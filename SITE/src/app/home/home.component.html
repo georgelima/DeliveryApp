@@ -1,0 +1,11 @@
+<div class="row">
+  <h4 class="center">Painel Administrativo - Parnaíba Delivery</h4>
+  <p>Empresas Cadastradas: <span *ngIf="enterprises.length > 0">{{ enterprises.length }}</span></p>
+  <p>Usuários Cadastrados: <span *ngIf="users.length > 0">{{ users.length }}</span></p>
+  <p>Usuário Online: </p>
+</div>
+<div class="row">
+  <div class="col s4">
+    <button [routerLink]="['cadastrar-empresa']" class="btn btn-large waves-effect waves-light orange darken-4"><i class="large material-icons right">library_add</i>Cadastrar Empresa</button>
+  </div>
+</div>

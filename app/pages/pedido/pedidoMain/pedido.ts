@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, ModalController, ToastController } from 'ionic-angular';
-import { EstabelecimentoService } from '../../../services/estabelecimento/estabelecimento';
+import { NavController, NavParams, LoadingController, ModalController, AlertController, ToastController } from 'ionic-angular';
+import { EnterpriseService } from '../../../services/estabelecimento/estabelecimento';
 import { PedidoFilter } from '../../../pipes/pipePedido';
 import { ItemModal } from '../modalItem/modalItem';
 import { PedidoUserPage } from '../pedidoStage2/pedidoUser';
@@ -8,24 +8,38 @@ import { ModalPedido } from '../modalPedido/modalPedido';
 
 import { Auth, User } from '@ionic/cloud-angular';
 
+import 'rxjs/add/operator/subscribeOn';
+
 @Component({
 	templateUrl: 'build/pages/pedido/pedidoMain/pedido.html',
-	providers:[EstabelecimentoService],
+	providers:[EnterpriseService],
 	pipes:[PedidoFilter]
 })
 
 export class PedidoPage {
-	public estabelecimentos: any;
-	public cardapios: any;
+	public enterprises: any;
+	public cardapio: any;
 	private pedido: any[] = [];
 	private mostraCardapio: boolean;
+	private confMudancaCardapio: boolean;
 
-	constructor(public auth: Auth, public user:User, public toastCtrl: ToastController, public modalCtrl: ModalController, private navCtrl: NavController, private params: NavParams, private loadingcontroller: LoadingController, private estabelecimentoservice: EstabelecimentoService) {
+	constructor(public alertCtrl: AlertController, public loadCtrl: LoadingController,public auth: Auth, public user:User, public toastCtrl: ToastController, public modalCtrl: ModalController, private navCtrl: NavController, private params: NavParams, private loadingcontroller: LoadingController, private enterpriseServ: EnterpriseService) {
 		this.mostraCardapio = false;
 		this.auth = params.get("auth");
 		this.user = params.get("user");
-		this.estabelecimentos = estabelecimentoservice.listaEstabelecimentos();
-		this.cardapios = estabelecimentoservice.listaCardapio();
+	}
+
+	ngOnInit(){
+		let loading = this.loadCtrl.create({
+			content: 'Carregando...'
+		});
+		loading.present();
+		this.enterpriseServ.getEnterprises().subscribe((data) => {
+			loading.dismiss().then(() => {
+				this.enterprises = data;
+				// this.mostraCardapio = true;
+			})
+		})
 	}
 
 	verPedido(){
@@ -41,12 +55,49 @@ export class PedidoPage {
 		modal.present();
 	}
 
-	carregaCardapio($event){
+	showConfirma(){
+		let confirma = this.alertCtrl.create({
+			title: 'Confirmar ação',
+			message: 'Ao mudar o estabelecimento o carrinho atual será esvaziado! Você tem certeza?',
+			buttons: [
+				{
+					text: 'Não',
+					handler: () => {
+						console.log('Clicou não');
+					}
+				},
+				{
+					text: 'Sim',
+					handler: () => {
+						console.log('Clicou sim');
+					}
+				}
+			]
+		});
+
+		confirma.present();	
+	}
+
+	carregaCardapio(_id: string){
+		// this.showConfirma();
+
+		// if (!this.confMudancaCardapio){
+		// 	return false;
+		// 	// this.confirma.dismiss();
+		// }
+
+		this.pedido = [];
 		let load = this.loadingcontroller.create({
 			content: 'Carregando...'
 		});
 		load.present();
-		setTimeout(() => { this.mostraCardapio = true; load.dismiss(); }, 1000);	
+		load.dismiss().then(() => {
+				let enterprise = this.enterprises.filter((item) => {
+				return item._id === _id;
+			});
+			this.cardapio = enterprise[0].menu;
+			this.mostraCardapio = true;
+		})	
 	}
 
 	adicionaItem(item){

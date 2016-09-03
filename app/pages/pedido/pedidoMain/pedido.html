@@ -13,19 +13,19 @@
 	<ion-list>
 	  <ion-item>
 	    <ion-label>Estabelecimento</ion-label>
-	    <ion-select [(ngModel)]="estabelecimento" cancelText="Cancelar" okText="OK" (ionChange)="carregaCardapio($event)">
-	      <ion-option *ngFor="let estabelecimento of estabelecimentos; let i = index" value="{{ estabelecimento.id }}">{{ estabelecimento.nome  }}</ion-option>
+	    <ion-select [(ngModel)]="enterprise" cancelText="Cancelar" okText="OK" (ionChange)="carregaCardapio($event)">
+	      <ion-option *ngFor="let enterprise of enterprises; let i = index" value="{{ enterprise._id }}">{{ enterprise.name  }}</ion-option>
 	    </ion-select>
 	  </ion-item>
 	</ion-list>
 	<ion-searchbar
-	  [(ngModel)]="pedidoBuscado"
+	  [(ngModel)]="searchItem"
 	  [showCancelButton]="false"
 	  placeholder="O que você quer?"
-		*ngIf="estabelecimento">
+		*ngIf="enterprise">
 	</ion-searchbar>
 	<ion-list *ngIf="mostraCardapio">
-		<ion-item *ngFor="let item of (cardapios | filtrapedido:pedidoBuscado); let i = index">
+		<ion-item *ngFor="let item of (cardapio | filtrapedido:searchItem); let i = index">
 			<button round item-right (click)="verItem(item)">
 				<ion-icon name="information-circle"></ion-icon>
 			</button>
@@ -34,7 +34,7 @@
 				<ion-icon name="add-circle"></ion-icon>
 			</button>
 
-			{{ item.produto }}
+			{{ item.name + ' - R$ ' + item.price }}
 		</ion-item>
 	</ion-list>
 	<ion-row *ngIf="pedido.length > 0">

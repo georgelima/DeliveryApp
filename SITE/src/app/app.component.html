@@ -1,0 +1,17 @@
+<nav class="orange darken-4">
+  <div class="nav-wrapper container">
+    <a [routerLink]="['/']" routerLinkActive="active" class="brand-logo">Dashboard</a>
+    <a [routerLink]="['/']" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+    <ul class="right hide-on-med-and-down">
+      <li><a [routerLink]="['/']">Inicio</a></li>
+        <li><a [routerLink]="['listar-empresas']">Empresas</a></li>
+    </ul>
+    <ul class="side-nav" id="mobile-demo">
+      <li><a [routerLink]="['/']">Inicio</a></li>
+        <li><a [routerLink]="['listar-empresas']">Empresas</a></li>
+    </ul>
+  </div>
+</nav>
+<main class="container">
+  <router-outlet></router-outlet> 
+</main>

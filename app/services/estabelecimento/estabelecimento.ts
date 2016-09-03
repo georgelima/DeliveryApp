@@ -1,25 +1,25 @@
-import  { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 
-
-const ESTABELECIMENTOS = [
-	{ id: 0, nome: 'Cafe e Cia' },
-	{ id: 1, nome: 'Dogão' },
-	{ id: 2, nome: 'Lek Lanches' }
-];
-
-const CARDAPIO = [
-	{ id: 0, produto: 'Sanduíche', preco: 10.00 },
-	{ id: 1, produto: 'Refrigerante', preco: 6.00 },
-	{ id: 2, produto: 'Pizza', preco: 30.00 }
-];
+import 'rxjs/add/operator/map';
 
 @Injectable()
-export class EstabelecimentoService {
-	listaEstabelecimentos(){
-		return ESTABELECIMENTOS;
-	}
 
-	listaCardapio(){
-		return CARDAPIO;
-	}
+export class EnterpriseService { 
+  constructor(public http: Http){}
+  private url = 'http://127.0.0.1:3000/api/enterprise/';
+
+  getEnterprises(){
+    return this.http.get(this.url).map((res: Response) => res.json());
+  }
+
+  getOrder(_id: string){
+    return this.http.get(this.url + _id).map((res: Response) => res.json());
+  }
+
+  postOrder(body: any){
+    return this.http.post(this.url, body).map((res: Response) => res.json());
+  }
+
 }

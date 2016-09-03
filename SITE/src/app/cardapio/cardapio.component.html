@@ -1,0 +1,56 @@
+<h5 *ngIf="status" class="center">Cardápio: {{ enterprise.name }}</h5>
+<div class="row">
+  <div class="col s4">
+    <form #formCardapio="ngForm" (submit)="cadastrar($event)">
+      <div class="row">
+        <div class="input-field">
+          <input type="text" id="name" class="validate" [(ngModel)]="item.name" name="name" />
+          <label for="name">Nome: </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s6">
+          <div class="input-field">
+            <input type="text" id="price" class="validate" [(ngModel)]="item.price" name="price" />
+            <label for="price">Preço: </label>
+          </div>
+        </div>
+        <div class="col s6">
+          <label>Escolha o tipo: </label>
+          <p>
+            <input name="beverage" type="radio" id="beverage" [(ngModel)]="item.kind" value="beverage" />
+            <label for="beverage">Bebida</label>
+          </p>
+          <p>
+            <input name="food" type="radio" id="food" [(ngModel)]="item.kind" value="food" />
+            <label for="food">Comida</label>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="description" class="materialize-textarea" rows="4" [(ngModel)]="item.description" name="description" ></textarea>
+          <label for="description">Descrição: </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col 12 offset-s4">
+          <button type="submit" class="btn">
+            <i class="material-icons">add</i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!--CARTÃO ITEM CARDÁPIO-->
+  <div class="col s8">
+    <ul class="collapsible popout" data-collapsible="accordion">
+      <li *ngFor="let item of menu; let i = index">
+        <div class="collapsible-header" *ngIf="item.kind == 'food'"><i class="material-icons">local_pizza</i>{{ item.name + ' - R$ ' + item.price }}<i (click)="removeItem($event, item)" class="material-icons right">close</i></div>
+        <div class="collapsible-header" *ngIf="item.kind == 'beverage'"><i class="material-icons">free_breakfast</i>{{ item.name + ' - R$ ' + item.price }}<i (click)="removeItem($event, item)" class="material-icons right">close</i></div>
+        <div class="collapsible-body"><p>{{ item.description }}</p></div>
+      </li>
+    </ul>
+  </div>
+  <!--FIM CARTÃO-->
+</div>

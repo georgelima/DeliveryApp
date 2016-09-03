@@ -7,11 +7,13 @@ const compression = require('compression');
 const helmet = require('helmet');
 const sanitize = require('express-mongo-sanitize');
 const expressValidator = require('express-validator');
+const cors = require('cors');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(expressValidator());
 
+app.use(cors());
 app.use(sanitize());
 app.use(compression());
 app.use(helmet());

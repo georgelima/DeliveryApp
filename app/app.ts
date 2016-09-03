@@ -36,12 +36,12 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need      
-      var notificacoes = this.push.register().then((t: PushToken) => this.push.saveToken(t)).then((t: PushToken) => console.log('Token Salvo', t.token));
+      // var notificacoes = this.push.register().then((t: PushToken) => this.push.saveToken(t)).then((t: PushToken) => console.log('Token Salvo', t.token));
 
-      this.push.rx.notification()
-      .subscribe((msg) => {
-        console.log(msg.title + ': ' + msg.text);
-      });
+      // this.push.rx.notification()
+      // .subscribe((msg) => {
+      //   console.log(msg.title + ': ' + msg.text);
+      // });
 
       StatusBar.styleDefault();
     });

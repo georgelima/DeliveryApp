@@ -18,7 +18,10 @@
         </ion-card-header>
         <ion-list>
           <button ion-item *ngFor="let item of pedido; let i =  index">
-            {{ item.produto }}
+            {{ item.name }}
+          </button>
+          <button ion-item>
+            <strong>Valor Total: </strong>
           </button>
         </ion-list>
       </ion-col>
@@ -28,7 +31,10 @@
         </ion-card-header>
         <ion-list>
           <button ion-item *ngFor="let item of pedido; let i =  index">
-            {{ 'R$ ' + item.preco }}
+            {{ item.price | currency:'BRL':true }}
+          </button>
+          <button ion-item>
+            <ion-badge style="font-size: 1em" item-left>{{ valorTotal | currency:'BRL':true }}</ion-badge>
           </button>
         </ion-list>
       </ion-col>
@@ -52,7 +58,7 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons end>
-    	<button primary outline (click)="confirma()">Confirmar</button>
+    	<button primary outline (click)="confirmar()">Confirmar</button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

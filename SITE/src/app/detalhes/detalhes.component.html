@@ -1,0 +1,47 @@
+<h4 class="center" *ngIf="status">Detalhes: {{ enterprise.name }}</h4>
+<form #formCadastro="ngForm" (submit)="salvar($event)" *ngIf="status">
+  <div class="row">
+    <div class="input-field col s12">
+      <input placeholder="Nome" type="text" id="nome" class="validate" [(ngModel)]="enterprise.name" name="name"/>
+      <!--<label for="nome">Nome: </label>-->
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <input placeholder="Rua" type="text" id="rua" class="validate" [(ngModel)]="enterprise.street" name="street"/>
+      <!--<label for="rua">Rua: </label>-->
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s4">
+      <input placeholder="Número" type="text" id="numero" class="validate" [(ngModel)]="enterprise.number" name="number"/>
+      <!--<label for="numero">Número: </label>-->
+    </div>
+    <div class="input-field col s4">
+      <input placeholder="Bairro" type="text" id="bairro" class="validate" [(ngModel)]="enterprise.neighborhood" name="neighborhood"/>
+      <!--<label for="bairro">Bairro: </label>-->
+    </div>
+    <div class="input-field col s4">
+      <input placeholder="Cidade" type="text" id="cidade" class="validate" [(ngModel)]="enterprise.city" name="city"/>
+      <!--<label for="cidade">Cidade: </label>-->
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s6">
+      <input placeholder="Email" type="email" id="email" class="validate" [(ngModel)]="enterprise.email" name="email"/>
+      <!--<label for="email">Email: </label>-->
+    </div>
+    <div class="input-field col s6">
+      <input placeholder="Telefone" type="text" id="telefone" class="validate" [(ngModel)]="enterprise.phone" name="phone"/>
+      <!--<label for="telefone">Telefone: </label>-->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s6">
+      <a *ngIf="status" [routerLink]="['cardapio']" class="right btn btn-large orange darken-4 waves-effect waves-light"><i class="large material-icons left">reorder</i>Cardápio</a>
+    </div>
+    <div class="col s6">
+      <button *ngIf="status" [disabled]="!enterprise.name || !enterprise.street" type="submit" class="left btn btn-large orange darken-4 waves-effect waves-light"><i class="large material-icons left">thumb_up</i>Salvar</button>
+    </div>
+  </div>
+</form>

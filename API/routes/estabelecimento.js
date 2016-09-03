@@ -11,4 +11,10 @@ module.exports = function (app) {
 	app.route('/api/enterprise/:id')
 		.get(controller.getEnterprise)
 		.delete(controller.deleteEnterprise);
+
+	app.route('/api/enterprise/:id/menu')
+		.put(controller.putMenu);
+
+	app.route('/api/enterprise/:id/menu/:idItem')
+		.delete(controller.deleteItemMenu);
 }

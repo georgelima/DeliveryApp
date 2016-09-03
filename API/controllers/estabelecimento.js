@@ -7,7 +7,6 @@ module.exports = function (app){
 
 	controller.getEnterprises = (req, res, next) => {
 		Enterprise.findAsync().then((data) => {
-			console.log('Bateu aqui');
 			res.status(200).json(data);
 		}).catch((e) => {
 			res.status(404).json({ err: 'Erro ao listar Empresas' });
@@ -31,22 +30,20 @@ module.exports = function (app){
 
 	controller.postEnterprise = (req, res) => {
 		req.sanitizeBody('name').trim();
-		req.sanitizeBody('picture').trim();
 		req.sanitizeBody('street').trim();
 		req.sanitizeBody('number').trim();
 		req.sanitizeBody('neighborhood').trim();
 		req.sanitizeBody('city').trim();
+		req.sanitizeBody('phone').trim();
+		req.sanitizeBody('email').trim();
 		
-		let { name, picture, street, number, neighborhood, city } = req.body;
+		let { name, street, number, neighborhood, city, phone, email } = req.body;
 		let enterprise = new Enterprise;
 
 		req.checkBody({
 			name: {
 				notEmpty: true,
 				errorMessage: 'Nome inválido!'
-			},
-			picture: {
-				optional: true
 			},
 			street: {
 				notEmpty: true,
@@ -63,17 +60,24 @@ module.exports = function (app){
 			city: {
 				notEmpty: true,
 				errorMessage: 'Cidade Inválida'
+			},
+			phone: {
+				optional: true
+			},
+			email: {
+				optional: true
 			}
 		});
 
 		req.asyncValidationErrors().then(() => {
 			enterprise.name = name;
-			enterprise.picture = picture;
 			enterprise.address.street = street;
 			enterprise.address.number = number;
 			enterprise.address.neighborhood = neighborhood;
 			enterprise.address.city = city;
-		
+			enterprise.contact.phone = phone;
+			enterprise.contact.email = email;
+
 			enterprise.saveAsync().then((enterprise) => {
 				res.status(201).json(enterprise);
 			}, err => {
@@ -86,9 +90,9 @@ module.exports = function (app){
 
 	controller.putEnterprise = (req, res) => {
 		let _id = req.body._id;
-		let { name, picture, street, number, neighborhood, city } = req.body;
+		let { name, street, number, neighborhood, city, phone, email } = req.body;
 		let address = { 'street': street, 'number': number, 'neighborhood': neighborhood, 'city': city }
-		
+		let contact = { 'phone': phone, 'email': email };
 		req.checkBody({
 			_id: {
 				notEmpty: true,
@@ -97,9 +101,6 @@ module.exports = function (app){
 			name: {
 				notEmpty: true,
 				errorMessage: 'Nome inválido!'
-			},
-			picture: {
-				optional: true
 			},
 			street: {
 				notEmpty: true,
@@ -120,13 +121,56 @@ module.exports = function (app){
 		});
 
 		let erros = req.asyncValidationErrors().then(() => {
-			let data = { name, picture, address };
+			let data = { name, address, contact };
 			Enterprise.findByIdAndUpdate(_id, data).exec().then(data => {
 				res.status(202).json(data);
 			}, (e) => res.status(404).json({ err: 'Erro ao atualizar dados!' }));
 		}).catch((err) => {
 			res.status(400).json(err);
 		});
+	}
+
+	controller.putMenu = (req, res) => {
+		let _id = req.params.id;
+
+		let name = req.body.name;
+		let price = req.body.price;
+		let description = req.body.description;
+		let kind = req.body.type;
+		
+		req.checkBody({
+			name: {
+				notEmpty: true,
+				errorMessage: 'Nome não informado!'
+			},
+			price: {
+				notEmpty: true,
+				errorMessage: 'Valor não informado!'
+			},
+			description: {
+				optional: true
+			},
+			kind: {
+				notEmpty: true,
+				errorMessage: 'Tipo não informado!'
+			}
+		});
+
+		req.checkParams('id', 'Não Informado').notEmpty();
+		let enterprise = new Enterprise;
+		
+		let erros = req.asyncValidationErrors().then(() => {
+			
+			Enterprise.findByIdAndUpdate(_id, { $push: { 'menu': req.body } }, { safe: true, upsert: true }).exec().then((data) => {
+				res.status(202).json(data);
+			}, (e) => {
+				res.status(404).json(e);
+			})
+
+		}).catch((err) => {
+			console.log(err);	
+			res.status(400).json(err);
+		})
 	}
 
 	controller.deleteEnterprise = (req, res) => {
@@ -139,7 +183,25 @@ module.exports = function (app){
 		}).catch((err) => {
 			res.status(400).json(err);
 		});
-	}
+	};
+
+	controller.deleteItemMenu = (req, res) => {
+		let id = req.params.id;
+		let idItem = req.params.idItem;
+
+		req.checkParams('id', 'Não informado').notEmpty();
+		req.checkParams('idItem', 'Não informado').notEmpty();
+
+		let erros = req.asyncValidationErrors().then(() => {
+			Enterprise.update({ '_id': id }, { $pull: { 'menu': { '_id': idItem } } }).exec().then((data) => {
+				res.status(202).json(data);
+			}, (err) => res.status(404).json(err));
+		}).catch((e) => { res.status(400).json(e) });
+	};
+
+	controller.postPedido = (req, res) => {
+		
+	};
 
 	return controller;
 }

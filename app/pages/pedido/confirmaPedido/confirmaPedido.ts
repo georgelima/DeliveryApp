@@ -13,15 +13,29 @@ export class ConfirmaPedido {
   public pedido: any[];
   public endereco: { rua: string, bairro: string, numero: string, cidade: string, infoAdicionais?: string }
 
+  public valores:any[];
+  public valorTotal: number;
+
   constructor(public params: NavParams, public navCtrl: NavController){
     this.auth = params.get("auth");
     this.user = params.get("user");
     this.pedido = params.get('pedido');
     this.endereco = params.get('endereco');
+    this.valores = [];
+
+    this.pedido.forEach((item) => {
+      this.valores.push(item.price);
+    });
+
+    this.valorTotal = this.valores.reduce((previous, current, i, array) => {
+      return previous + current;
+    }, 0);
+
   }
 
   confirmar(){
-    console.log("Pedido: " + this.pedido);
-    console.log("Endereco: " + this.endereco);
+    console.log(this.user);
+    console.log(this.pedido);
+    console.log(this.endereco);
   }
 }

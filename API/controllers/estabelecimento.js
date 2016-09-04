@@ -204,6 +204,7 @@ module.exports = function (app){
 		let order = req.body.pedido;
 		let address = req.body.endereco;
 		let idEnterprise = req.body.idEnterprise;
+		let totalPrice = req.body.totalPrice;
 
 		req.checkBody({
 			userId: {
@@ -217,13 +218,15 @@ module.exports = function (app){
 		})
 
 		let erros = req.asyncValidationErrors().then(() => {
-			let data = {
+			let orderFinally = {
 				'idUser': userId,
 				'items': order,
-				'address': address
-			}
-			Enterprise.findByIdAndUpdate(idEnterprise, { $push: { 'orders': data } }, { safe: true, upsert: true }).exec().then((data) => {
-				console.log(data);
+				'address': address,
+				'totalPrice': totalPrice
+			};
+
+			Enterprise.findByIdAndUpdate(idEnterprise, { $push: { 'orders': orderFinally } }, { safe: true, upsert: true }).exec().then((data) => {
+				app.get('io').emit('newOrder', orderFinally);
 				res.status(202).json(data);
 			}, (e) => {
 				res.status(404).json(e);

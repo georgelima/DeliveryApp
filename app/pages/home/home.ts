@@ -2,16 +2,18 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, ModalController } from 'ionic-angular';
 import { Auth, User, Push, PushToken } from '@ionic/cloud-angular';
 import { PedidoPage } from '../pedido/pedidoMain/pedido';
-
 import { ModalLogin } from '../autenticacao/modalLogin';
 
+import { EnterpriseService } from '../../services/estabelecimento/estabelecimento';
+
 @Component({
-  templateUrl: 'build/pages/home/home.html'
+  templateUrl: 'build/pages/home/home.html',
+  providers: [EnterpriseService]
 })
 
 export class HomePage {
   public endereco:any;
-  constructor(public push: Push, public auth: Auth, public user: User, public modalCtrl: ModalController, public navCtrl: NavController, private loadingcontroller: LoadingController) {
+  constructor(public entServ: EnterpriseService, public push: Push, public auth: Auth, public user: User, public modalCtrl: ModalController, public navCtrl: NavController, private loadingcontroller: LoadingController) {
     
   }
 
@@ -33,6 +35,12 @@ export class HomePage {
     });
     loader.present();
     this.auth.logout();
+  }
+
+  atualizaPedidos(event: any){
+    setTimeout(() => {
+      event.complete();
+    }, 3000);
   }
 
   fazerPedido(){

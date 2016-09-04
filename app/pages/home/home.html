@@ -13,19 +13,40 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-	<ion-slides pager>
-		<ion-slide style="background-color: white">
-	    <h2>Slide 1</h2>
-	  </ion-slide>
+	<ion-refresher (ionRefresh)="atualizaPedidos($event)">
+		<ion-refresher-content 
+			pullingIcon="arrow-dropdown"
+      pullingText="Puxe para atualizar"
+      refreshingSpinner="circles"
+      refreshingText="Atualizando..."
+		>
+		</ion-refresher-content>
+	</ion-refresher>
+	<ion-title text-center style="margin-top: 10px">Seus Pedidos: </ion-title>
+	<ion-card>
+		<ion-item>
+			<h2>Dogão Lanches</h2>
+			<p>Valor: R$ 25,00</p>
+		</ion-item>
+		<ion-card-content>
+			<p><ion-icon name="pizza"></ion-icon> Sanduíche de Filé</p>
+			<p><ion-icon name="beer"></ion-icon> Suco de Maracujá</p>
+		</ion-card-content>
 
-	  <ion-slide style="background-color: orange">
-	    <h2>Slide 2</h2>
-	  </ion-slide>
-
-	  <ion-slide style="background-color: black">
-	    <h2>Slide 3</h2>
-	  </ion-slide>
-	</ion-slides>
+		<ion-row>
+			<ion-col>
+				<button primary clear small>
+					<ion-icon name="clock"></ion-icon>
+					<div>Processando...</div>
+				</button>
+			</ion-col>
+			<ion-col center text-center>
+				<ion-note>
+					11h ago
+				</ion-note>
+			</ion-col>
+		</ion-row>
+	</ion-card>
 </ion-content>
 <ion-footer>
 	<ion-toolbar primary *ngIf="auth.isAuthenticated()">

@@ -19,11 +19,13 @@ export class PedidoUserPage {
   public numero: string;
   public cidade: string;
   public infoAdicionais: string;
+  public idEnterprise: string;
 
   constructor(public loadCtrl: LoadingController, public auth: Auth, public user: User,private navCtrl: NavController, private params: NavParams) {
 		this.auth = params.get("auth");
     this.pedido = params.get("pedido");
     this.user = params.get("user");
+    this.idEnterprise = params.get("idEnterprise");
 
     let endereco = this.user.get('endereco', null);
 
@@ -76,6 +78,6 @@ export class PedidoUserPage {
       enderecoPedido = endereco;
     }
 
-    this.navCtrl.push(ConfirmaPedido, { auth: this.auth, user: this.user, pedido: this.pedido, endereco: enderecoPedido })
+    this.navCtrl.push(ConfirmaPedido, { auth: this.auth, user: this.user, pedido: this.pedido, endereco: enderecoPedido, idEnterprise: this.idEnterprise })
   }
 }

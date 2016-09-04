@@ -7,7 +7,8 @@ export class Enterprise {
     public number?: string,
     public city?: string,
     public email?: string,
-    public phone?: string  
+    public phone?: string,
+    public orders?: any[]  
   ){
     
   }

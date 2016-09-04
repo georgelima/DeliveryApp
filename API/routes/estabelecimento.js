@@ -17,4 +17,7 @@ module.exports = function (app) {
 
 	app.route('/api/enterprise/:id/menu/:idItem')
 		.delete(controller.deleteItemMenu);
+
+	app.route('/api/enterprise/order')
+		.put(controller.postOrder);
 }

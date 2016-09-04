@@ -8,7 +8,7 @@ import { HomePage } from './pages/home/home';
 
 const cloudSettings: CloudSettings = {
   'core': {
-    'app_id': '-',
+    'app_id': '3041fbbf',
   },
   'push': {
     'sender_id': '-', // ID GCM

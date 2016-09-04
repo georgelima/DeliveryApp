@@ -20,8 +20,8 @@ module.exports = function (app){
 		'menu':[{
 			'name': String, 'price': Number, 'description': String, 'kind': String
 		}],
-		'pedidos': [{
-			'idUser': String, 'itens': [], 'endereco': {} , 'status': String 
+		'orders': [{
+			'idUser': String, 'items': [], 'address': {} , 'status': { type: String, default:'processing' } 
 		}],
 		'createdAt': {
 			'type': Date,

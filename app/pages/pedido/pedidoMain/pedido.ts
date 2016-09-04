@@ -23,6 +23,8 @@ export class PedidoPage {
 	private mostraCardapio: boolean;
 	private confMudancaCardapio: boolean;
 
+	public idEnterprise: string;
+
 	constructor(public alertCtrl: AlertController, public loadCtrl: LoadingController,public auth: Auth, public user:User, public toastCtrl: ToastController, public modalCtrl: ModalController, private navCtrl: NavController, private params: NavParams, private loadingcontroller: LoadingController, private enterpriseServ: EnterpriseService) {
 		this.mostraCardapio = false;
 		this.auth = params.get("auth");
@@ -96,6 +98,8 @@ export class PedidoPage {
 				return item._id === _id;
 			});
 			this.cardapio = enterprise[0].menu;
+			this.idEnterprise = enterprise[0]._id;
+			
 			this.mostraCardapio = true;
 		})	
 	}
@@ -121,7 +125,7 @@ export class PedidoPage {
 	}
 	
 	next(){
-		this.navCtrl.push(PedidoUserPage, { user: this.user, auth: this.auth, pedido: this.pedido });
+		this.navCtrl.push(PedidoUserPage, { user: this.user, auth: this.auth, pedido: this.pedido, idEnterprise: this.idEnterprise });
 	}
 
 	voltar(){	

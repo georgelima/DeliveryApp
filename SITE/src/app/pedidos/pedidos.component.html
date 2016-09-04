@@ -1,0 +1,11 @@
+<h5 class="center">Pedidos</h5>
+<div class="progress" style="margin-top: 20px" *ngIf="!showList">
+  <div class="indeterminate"></div>
+</div>
+<div class="input-field col s12" *ngIf="showList">
+  <select materialize="material_select" [materializeSelectOptions]="selectOptions">
+    <option value="" disabled selected>Escolha uma opção</option>
+    <option *ngFor="let enterprise of enterprises; let i = index" [value]="enterprise._id">{{ enterprise.name }}</option>
+  </select>
+  <label>Estabelecimento: </label>
+</div>

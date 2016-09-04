@@ -199,8 +199,39 @@ module.exports = function (app){
 		}).catch((e) => { res.status(400).json(e) });
 	};
 
-	controller.postPedido = (req, res) => {
-		
+	controller.postOrder = (req, res) => {
+		let userId = req.body.userId;
+		let order = req.body.pedido;
+		let address = req.body.endereco;
+		let idEnterprise = req.body.idEnterprise;
+
+		req.checkBody({
+			userId: {
+				notEmpty: false,
+				errorMessage: 'Identificador do usuário não informado',
+			},
+			idEnterprise: {
+				notEmpty: false,
+				errorMessage: 'Identificador do estabelecimento não informado!'
+			}
+		})
+
+		let erros = req.asyncValidationErrors().then(() => {
+			let data = {
+				'idUser': userId,
+				'items': order,
+				'address': address
+			}
+			Enterprise.findByIdAndUpdate(idEnterprise, { $push: { 'orders': data } }, { safe: true, upsert: true }).exec().then((data) => {
+				console.log(data);
+				res.status(202).json(data);
+			}, (e) => {
+				res.status(404).json(e);
+			})
+		}).catch((err) => {
+			res.status(400).json(err);
+		});
+
 	};
 
 	return controller;

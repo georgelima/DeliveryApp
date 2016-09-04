@@ -19,7 +19,7 @@ export class EnterpriseService {
   }
 
   postOrder(body: any){
-    return this.http.post(this.url, body).map((res: Response) => res.json());
+    return this.http.put(this.url + 'order/', body).map((res: Response) => res.json());
   }
 
 }

@@ -14,8 +14,8 @@ export class EnterpriseService {
     return this.http.get(this.url).map((res: Response) => res.json());
   }
 
-  getOrder(_id: string){
-    return this.http.get(this.url + _id).map((res: Response) => res.json());
+  getOrders(idUser: string){
+    return this.http.get(this.url + 'order/' + idUser).map((res: Response) => res.json());
   }
 
   postOrder(body: any){

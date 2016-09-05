@@ -6,15 +6,32 @@ import { ModalLogin } from '../autenticacao/modalLogin';
 
 import { EnterpriseService } from '../../services/estabelecimento/estabelecimento';
 
+import { TimeAgoFilter } from '../../pipes/timeAgo';
+import { SortListPipe } from '../../pipes/orderByDate';
+
 @Component({
   templateUrl: 'build/pages/home/home.html',
-  providers: [EnterpriseService]
+  providers: [EnterpriseService],
+  pipes: [TimeAgoFilter, SortListPipe]
 })
 
 export class HomePage {
   public endereco:any;
+  public orders: any[];
+
   constructor(public entServ: EnterpriseService, public push: Push, public auth: Auth, public user: User, public modalCtrl: ModalController, public navCtrl: NavController, private loadingcontroller: LoadingController) {
-    
+    this.carregaLista();
+  }
+
+  carregaLista(callback?: any){
+    this.entServ.getOrders(this.user.id).subscribe((data) => {
+      this.orders = data;
+
+      if (callback){
+        callback();
+      }
+
+    });
   }
 
   entrar(){
@@ -36,11 +53,15 @@ export class HomePage {
     loader.present();
     this.auth.logout();
   }
+  
+  ionViewDidEnter(){
+    this.carregaLista();
+  }
 
   atualizaPedidos(event: any){
-    setTimeout(() => {
+    this.carregaLista(() => {
       event.complete();
-    }, 3000);
+    });
   }
 
   fazerPedido(){

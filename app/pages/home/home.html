@@ -23,14 +23,13 @@
 		</ion-refresher-content>
 	</ion-refresher>
 	<ion-title text-center style="margin-top: 10px">Seus Pedidos: </ion-title>
-	<ion-card>
+	<ion-card *ngFor="let order of (orders | ordenaListaPorData) ; let i = index">
 		<ion-item>
-			<h2>Dogão Lanches</h2>
-			<p>Valor: R$ 25,00</p>
+			<h2>{{ order.enterprise }}</h2>
+			<p>Valor: {{ order.order.totalPrice | currency:'BRL':true }}</p>
 		</ion-item>
 		<ion-card-content>
-			<p><ion-icon name="pizza"></ion-icon> Sanduíche de Filé</p>
-			<p><ion-icon name="beer"></ion-icon> Suco de Maracujá</p>
+			<p *ngFor="let item of order.order.items"> <ion-icon name="pizza" *ngIf="item.kind == 'food'"></ion-icon> <ion-icon name="beer" *ngIf="item.kind == 'beverage'"></ion-icon> {{ item.name }}</p>
 		</ion-card-content>
 
 		<ion-row>
@@ -42,7 +41,7 @@
 			</ion-col>
 			<ion-col center text-center>
 				<ion-note>
-					11h ago
+					{{ order.order.createdAt | filtraDatta }}
 				</ion-note>
 			</ion-col>
 		</ion-row>

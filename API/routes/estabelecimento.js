@@ -20,4 +20,7 @@ module.exports = function (app) {
 
 	app.route('/api/enterprise/order')
 		.put(controller.postOrder);
+
+	app.route('/api/enterprise/order/:idUser')
+		.get(controller.getOrdersByUser);
 }

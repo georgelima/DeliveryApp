@@ -234,8 +234,37 @@ module.exports = function (app){
 		}).catch((err) => {
 			res.status(400).json(err);
 		});
-
 	};
+
+	controller.getOrdersByUser = (req,res) => {
+		let ordersOfUser = [];
+		let idUser = req.params.idUser;
+
+		req.checkParams('idUser', 'ID não informado!').notEmpty();
+
+		Enterprise.findAsync().then((data) => {
+			
+			data.forEach((enterprise) => {
+
+				enterprise.orders.forEach((order) => {
+					let currentOrder = { enterprise: enterprise.name, order: order }
+					ordersOfUser.push(currentOrder);	
+				});
+
+			});
+
+			ordersOfUser = ordersOfUser.filter((current) => {
+				return current.order.idUser == idUser;
+			});
+
+			res.status(200).json(ordersOfUser);
+			
+		}).catch((e) => {
+			res.status(404).json({ err: 'Erro ao listar Empresas' });
+		});
+
+		
+	}
 
 	return controller;
 }

@@ -21,7 +21,7 @@ module.exports = function (app){
 			'name': String, 'price': Number, 'description': String, 'kind': String
 		}],
 		'orders': [{
-			'idUser': String, 'items': [], 'address': {} , 'status': { type: String, default:'processing' }, 'totalPrice': Number, createdAt: { type: Date, default: Date.now } 
+			'idUser': String, 'items': [], 'address': {} , 'status': { type: String, default:'Processando' }, 'totalPrice': Number, createdAt: { type: Date, default: Date.now } 
 		}],
 		'createdAt': {
 			'type': Date,

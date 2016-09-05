@@ -3,9 +3,44 @@
   <div class="indeterminate"></div>
 </div>
 <div class="row">
-  <div class="col s12" *ngIf="showList">
-    <ul class="collection">
-      <a *ngFor="let order of orders; let i = index" style="cursor: pointer" (click)="carregaPedido(order)" class="collection-item">{{ order.idUser }}</a>
+ <div class="col s12">
+    <ul class="collapsible popout" data-collapsible="accordion">
+      <li *ngFor="let order of orders; let i = index">
+        <div class="collapsible-header">
+          <i class="material-icons">speaker_notes</i>{{ order.enterprise + ' - ' + (order.order.totalPrice | currency:'BRL':true) + ' Status: ' + order.order.status }}
+        </div>
+        <div class="collapsible-body">
+          <div>
+            <p>Rua: {{ order.order.address.rua }}<br>
+            Numero: {{ order.order.address.numero }}<br>
+            Bairro: {{ order.order.address.bairro }}<br>
+            Cidade: {{ order.order.address.cidade }}<br>
+            Informações Adicionais: {{ order.order.address.infoAdicionais }}</p>
+            <div style="margin: 10px">
+              <button class="btn btn-small purple darken-2" (click)="openModal()" >Ver Endereço</button>
+              <button class="btn btn-small green darken-3" (click)="changeStatus(order.order)" >Enviar</button>
+            </div>
+
+            <div id="modal1" class="modal">
+              <div class="modal-content">
+                <h4>Endereço: </h4>
+                <p>
+                  Rua: {{ order.order.address.rua }}<br>
+                  Número: {{ order.order.address.numero }}<br>
+                  Bairro: {{ order.order.address.bairro }}<br>
+                  Cidade: {{ order.order.address.cidade }}<br>
+                  Informações Adicionais: {{ order.order.address.infoAdicionais }}
+                </p>
+              </div>
+              <div class="modal-footer">
+                <!--<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>-->
+              </div>
+            </div>
+
+          </div>
+          <div class="col s6"></div>
+        </div>
+      </li>
     </ul>
-  </div>
+ </div>
 </div>

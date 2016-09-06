@@ -9,17 +9,17 @@ let usersOnline = 0;
 io.on('connection', (socket) => {
   io.sockets.emit('conn', 'Conectado!');
   usersOnline++;
-  console.log('Usuarios: ', usersOnline);
+  // console.log('Usuarios: ', usersOnline);
 
   socket.on('disconnect', (socket) => {
     usersOnline--;
-    console.log('Usuarios: ', usersOnline);
+    // console.log('Usuarios: ', usersOnline);
   });
 
 });
 
 app.set('io', io);
 
-require('./config/db')('mongodb://127.0.0.1/phbdelivery');
+require('./config/db')('mongodb://192.168.1.2/phbdelivery');
 
-http.listen(app.get('port'), () => console.log("Server rodando!"))
+http.listen(app.get('port'), '192.168.1.2', () => console.log("Server rodando!"))

@@ -7,29 +7,29 @@
     <ul class="collapsible popout" data-collapsible="accordion">
       <li *ngFor="let order of orders; let i = index">
         <div class="collapsible-header">
-          <i class="material-icons">speaker_notes</i>{{ order.enterprise + ' - ' + (order.order.totalPrice | currency:'BRL':true) + ' Status: ' + order.order.status }}
+          <i class="material-icons">speaker_notes</i>{{ order.enterprise.name + ' - ' + (order.totalPrice | currency:'BRL':true) }}
+          <span class="red-text text-darken-4" *ngIf="order.status == 'Processando'"><strong> - Status:   Processando</strong></span>
+          <span class="purple-text text-darken-4" *ngIf="order.status == 'Preparando'"><strong> - Status:   Preparando</strong></span>
+          <span class="orange-text text-darken-4" *ngIf="order.status == 'Saiu para entrega'"><strong> - Status:   Saiu para entrega</strong></span>
+          <span class="green-text text-darken-4" *ngIf="order.status == 'Finalizado'"><strong> - Status:   Finalizado</strong></span>
         </div>
         <div class="collapsible-body">
           <div>
-            <p>Rua: {{ order.order.address.rua }}<br>
-            Numero: {{ order.order.address.numero }}<br>
-            Bairro: {{ order.order.address.bairro }}<br>
-            Cidade: {{ order.order.address.cidade }}<br>
-            Informações Adicionais: {{ order.order.address.infoAdicionais }}</p>
+            <span style="margin: 10px" *ngFor="let item of order.items"> {{ item.name  }} <br></span>
             <div style="margin: 10px">
               <button class="btn btn-small purple darken-2" (click)="openModal()" >Ver Endereço</button>
-              <button class="btn btn-small green darken-3" (click)="changeStatus(order.order)" >Enviar</button>
+              <button class="btn btn-small green darken-3" (click)="changeStatus(order)" >Enviar</button>
             </div>
 
             <div id="modal1" class="modal">
               <div class="modal-content">
                 <h4>Endereço: </h4>
                 <p>
-                  Rua: {{ order.order.address.rua }}<br>
-                  Número: {{ order.order.address.numero }}<br>
-                  Bairro: {{ order.order.address.bairro }}<br>
-                  Cidade: {{ order.order.address.cidade }}<br>
-                  Informações Adicionais: {{ order.order.address.infoAdicionais }}
+                  Rua: {{ order.address.rua }}<br>
+                  Número: {{ order.address.numero }}<br>
+                  Bairro: {{ order.address.bairro }}<br>
+                  Cidade: {{ order.address.cidade }}<br>
+                  Informações Adicionais: {{ order.address.infoAdicionais }}
                 </p>
               </div>
               <div class="modal-footer">

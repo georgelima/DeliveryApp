@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 
 export class EnterpriseService { 
   constructor(public http: Http){}
-  private url = 'http://127.0.0.1:3000/api/enterprise/';
+  private url = 'http://192.168.1.2:3000/api/enterprise/';
 
   getEnterprises(){
     return this.http.get(this.url).map((res: Response) => res.json());
@@ -40,6 +40,7 @@ export class EnterpriseService {
       res.json();
     });
   }
+  
 }
 
 

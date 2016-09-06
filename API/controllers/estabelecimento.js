@@ -15,8 +15,9 @@ module.exports = function (app){
 
 	controller.getEnterprise = (req, res) => {
 		let id = req.params.id;
+		
 		req.checkParams('id', 'Precisa ser uma string').notEmpty();
-
+	
 		let erros = req.asyncValidationErrors().then(() => {
 			Enterprise.findById(id).exec().then((data) => {
 				res.status(200).json(data);
@@ -198,73 +199,6 @@ module.exports = function (app){
 			}, (err) => res.status(404).json(err));
 		}).catch((e) => { res.status(400).json(e) });
 	};
-
-	controller.postOrder = (req, res) => {
-		let userId = req.body.userId;
-		let order = req.body.pedido;
-		let address = req.body.endereco;
-		let idEnterprise = req.body.idEnterprise;
-		let totalPrice = req.body.totalPrice;
-
-		req.checkBody({
-			userId: {
-				notEmpty: false,
-				errorMessage: 'Identificador do usuário não informado',
-			},
-			idEnterprise: {
-				notEmpty: false,
-				errorMessage: 'Identificador do estabelecimento não informado!'
-			}
-		})
-
-		let erros = req.asyncValidationErrors().then(() => {
-			let orderFinally = {
-				'idUser': userId,
-				'items': order,
-				'address': address,
-				'totalPrice': totalPrice
-			};
-
-			Enterprise.findByIdAndUpdate(idEnterprise, { $push: { 'orders': orderFinally } }, { safe: true, upsert: true }).exec().then((data) => {
-				app.get('io').emit('newOrder', orderFinally);
-				res.status(202).json(data);
-			}, (e) => {
-				res.status(404).json(e);
-			})
-		}).catch((err) => {
-			res.status(400).json(err);
-		});
-	};
-
-	controller.getOrdersByUser = (req,res) => {
-		let ordersOfUser = [];
-		let idUser = req.params.idUser;
-
-		req.checkParams('idUser', 'ID não informado!').notEmpty();
-
-		Enterprise.findAsync().then((data) => {
-			
-			data.forEach((enterprise) => {
-
-				enterprise.orders.forEach((order) => {
-					let currentOrder = { enterprise: enterprise.name, order: order }
-					ordersOfUser.push(currentOrder);	
-				});
-
-			});
-
-			ordersOfUser = ordersOfUser.filter((current) => {
-				return current.order.idUser == idUser;
-			});
-
-			res.status(200).json(ordersOfUser);
-			
-		}).catch((e) => {
-			res.status(404).json({ err: 'Erro ao listar Empresas' });
-		});
-
-		
-	}
 
 	return controller;
 }

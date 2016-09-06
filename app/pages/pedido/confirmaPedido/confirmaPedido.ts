@@ -29,7 +29,7 @@ export class ConfirmaPedido {
     this.pedido.forEach((item) => {
       this.valores.push(item.price);
     });
-
+      
     this.valorTotal = this.valores.reduce((previous, current, i, array) => {
       return previous + current;
     }, 0);

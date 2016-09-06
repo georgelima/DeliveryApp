@@ -11,7 +11,7 @@ export class SortListPipe implements PipeTransform {
   transform(lista: any[]): any {    
     if (lista){
       lista = lista.sort((a, b): number => {
-        return new Date(b.order.createdAt).getTime() - new Date(a.order.createdAt).getTime();
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
       });
     }
     return lista;

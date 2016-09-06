@@ -25,23 +25,40 @@
 	<ion-title text-center style="margin-top: 10px">Seus Pedidos: </ion-title>
 	<ion-card *ngFor="let order of (orders | ordenaListaPorData) ; let i = index">
 		<ion-item>
-			<h2>{{ order.enterprise }}</h2>
-			<p>Valor: {{ order.order.totalPrice | currency:'BRL':true }}</p>
+			<h2>{{ order.enterprise.name }}</h2>
+			<p>Valor: {{ order.totalPrice | currency:'BRL':true }}</p>
 		</ion-item>
 		<ion-card-content>
-			<p *ngFor="let item of order.order.items"> <ion-icon name="pizza" *ngIf="item.kind == 'food'"></ion-icon> <ion-icon name="beer" *ngIf="item.kind == 'beverage'"></ion-icon> {{ item.name }}</p>
+			<p *ngFor="let item of order.items"> <ion-icon name="pizza" *ngIf="item.kind == 'food'"></ion-icon> <ion-icon name="beer" *ngIf="item.kind == 'beverage'"></ion-icon> {{ item.name }}</p>
 		</ion-card-content>
 
 		<ion-row>
 			<ion-col>
-				<button primary clear small>
-					<ion-icon name="clock"></ion-icon>
-					<div>Processando...</div>
+				
+				<button redColor clear small *ngIf="order.status == 'Processando'">
+					<ion-icon name="clipboard"></ion-icon>
+					<div>{{ order.status }}</div>
 				</button>
+
+				<button facebook clear small *ngIf="order.status == 'Preparando'">
+					<ion-icon name="clock"></ion-icon>
+					<div>{{ order.status }}</div>
+				</button>
+
+				<button danger clear small *ngIf="order.status == 'Saiu para entrega'">
+					<ion-icon name="walk"></ion-icon>
+					<div>{{ order.status }}</div>
+				</button>
+
+				<button secondary clear small *ngIf="order.status == 'Finalizado'">
+					<ion-icon name="done-all"></ion-icon>
+					<div>{{ order.status }}</div>
+				</button>
+
 			</ion-col>
 			<ion-col center text-center>
 				<ion-note>
-					{{ order.order.createdAt | filtraDatta }}
+					{{ order.createdAt | filtraDatta }}
 				</ion-note>
 			</ion-col>
 		</ion-row>

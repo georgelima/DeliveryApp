@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { EnterpriseService } from '../services/enterprise.service';
+import { OrderService } from '../services/order.service';
 import { Enterprise } from '../empresa';
 
 declare var io: any;
@@ -8,8 +8,7 @@ declare var Materialize: any;
 
 @Component({
   templateUrl: './pedidos.component.html',
-  providers: [EnterpriseService],
-  directives: []
+  providers: [OrderService]
 })
 
 export class PedidosComponent {
@@ -17,11 +16,10 @@ export class PedidosComponent {
   public showList: boolean = false;
   public orders: any[] = [];
   public socket: any;
-  public showOrder: boolean = false;
   public itens: any[];
 
-  constructor(public entServ: EnterpriseService){
-    this.socket = io('http://127.0.0.1:3000/');
+  constructor(public entOrder: OrderService){
+    this.socket = io('http://192.168.1.2:3000/');
 
     this.socket.on('conn', (data: any) => {
       console.log(data);
@@ -39,15 +37,10 @@ export class PedidosComponent {
   }
 
   carregaLista(){
-    this.entServ.getEnterprises().subscribe((data) => {
-      this.enterprises = data;
-      this.enterprises.forEach((enterprise) => {
-        let orderFinnaly = { 'enterprise': enterprise.name, order: {} }
-        enterprise.orders.forEach((order: any) => {
-          orderFinnaly.order = order;
-          this.orders.push(orderFinnaly);
-        })
-      });
+    this.showList = false; 
+    this.orders = [];
+    this.entOrder.getOrders().subscribe((data) => {
+      this.orders = data;
       this.showList = true;
     });
   }
@@ -67,7 +60,9 @@ export class PedidosComponent {
   }
 
   changeStatus(order: any){
-    console.log(order);
+    this.entOrder.changeStatusOrder(order._id, { status: 'Preparando' }).subscribe((data: any) => {
+      this.carregaLista();
+    });
   }
 
   ngAfterViewInit(){

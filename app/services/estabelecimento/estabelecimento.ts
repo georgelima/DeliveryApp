@@ -8,18 +8,19 @@ import 'rxjs/add/operator/map';
 
 export class EnterpriseService { 
   constructor(public http: Http){}
-  private url = 'http://127.0.0.1:3000/api/enterprise/';
+  private urlEnterprise = 'http://192.168.1.2:3000/api/enterprise/';
+  private urlOrder = 'http://192.168.1.2:3000/api/order/';
 
   getEnterprises(){
-    return this.http.get(this.url).map((res: Response) => res.json());
+    return this.http.get(this.urlEnterprise).map((res: Response) => res.json());
   }
 
   getOrders(idUser: string){
-    return this.http.get(this.url + 'order/' + idUser).map((res: Response) => res.json());
+    return this.http.get(this.urlOrder +  idUser).map((res: Response) => res.json());
   }
 
   postOrder(body: any){
-    return this.http.put(this.url + 'order/', body).map((res: Response) => res.json());
+    return this.http.put(this.urlOrder, body).map((res: Response) => res.json());
   }
 
 }

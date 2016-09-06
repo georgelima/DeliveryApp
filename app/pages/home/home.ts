@@ -26,7 +26,7 @@ export class HomePage {
   carregaLista(callback?: any){
     this.entServ.getOrders(this.user.id).subscribe((data) => {
       this.orders = data;
-
+      // console.log(data);
       if (callback){
         callback();
       }

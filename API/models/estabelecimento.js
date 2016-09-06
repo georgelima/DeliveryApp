@@ -20,9 +20,6 @@ module.exports = function (app){
 		'menu':[{
 			'name': String, 'price': Number, 'description': String, 'kind': String
 		}],
-		'orders': [{
-			'idUser': String, 'items': [], 'address': {} , 'status': { type: String, default:'Processando' }, 'totalPrice': Number, createdAt: { type: Date, default: Date.now } 
-		}],
 		'createdAt': {
 			'type': Date,
 			'default': Date.now

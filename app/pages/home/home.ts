@@ -9,6 +9,8 @@ import { EnterpriseService } from '../../services/estabelecimento/estabeleciment
 import { TimeAgoFilter } from '../../pipes/timeAgo';
 import { SortListPipe } from '../../pipes/orderByDate';
 
+declare var io: any;
+
 @Component({
   templateUrl: 'build/pages/home/home.html',
   providers: [EnterpriseService],
@@ -18,9 +20,27 @@ import { SortListPipe } from '../../pipes/orderByDate';
 export class HomePage {
   public endereco:any;
   public orders: any[];
+  public socket: any;
 
   constructor(public entServ: EnterpriseService, public push: Push, public auth: Auth, public user: User, public modalCtrl: ModalController, public navCtrl: NavController, private loadingcontroller: LoadingController) {
+    this.socket = io('http://192.168.1.9:3000');
+
+    this.socket.on('changeStatus', (data) => {
+      this.verificaSocket(data._id);
+    });
+
     this.carregaLista();
+  }
+
+  verificaSocket(_id: string){
+    
+    this.orders.map((current) => {
+      if (current._id === _id){
+        this.carregaLista();
+        return 0;
+      }
+    });
+    
   }
 
   carregaLista(callback?: any){

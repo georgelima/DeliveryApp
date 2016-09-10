@@ -4,6 +4,8 @@ const app = require('./config/express')();
 const http = require('http').createServer(app);
 const io = require('socket.io').listen(http);
 
+const ip  = require('ip');
+
 let usersOnline = 0;
 
 io.on('connection', (socket) => {
@@ -19,7 +21,8 @@ io.on('connection', (socket) => {
 });
 
 app.set('io', io);
+app.set('ip', ip.address());
 
-require('./config/db')('mongodb://192.168.1.2/phbdelivery');
+require('./config/db')('mongodb://' + app.get('ip') + '/phbdelivery');
 
-http.listen(app.get('port'), '192.168.1.2', () => console.log("Server rodando!"))
+http.listen(app.get('port'), app.get('ip'), () => console.log("Server rodando!"))

@@ -8,8 +8,8 @@ import 'rxjs/add/operator/map';
 
 export class EnterpriseService { 
   constructor(public http: Http){}
-  private urlEnterprise = 'http://192.168.1.2:3000/api/enterprise/';
-  private urlOrder = 'http://192.168.1.2:3000/api/order/';
+  private urlEnterprise = 'http://192.168.1.9:3000/api/enterprise/';
+  private urlOrder = 'http://192.168.1.9:3000/api/order/';
 
   getEnterprises(){
     return this.http.get(this.urlEnterprise).map((res: Response) => res.json());

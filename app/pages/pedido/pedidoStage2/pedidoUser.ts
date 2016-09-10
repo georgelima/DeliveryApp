@@ -78,6 +78,14 @@ export class PedidoUserPage {
       enderecoPedido = endereco;
     }
 
-    this.navCtrl.push(ConfirmaPedido, { auth: this.auth, user: this.user, pedido: this.pedido, endereco: enderecoPedido, idEnterprise: this.idEnterprise })
+    // let endereco = {
+    //   rua: this.rua,
+    //   bairro: this.bairro,
+    //   numero: this.numero,
+    //   cidade: this.cidade,
+    //   infoAdicionais: this.infoAdicionais
+    // }
+
+    this.navCtrl.push(ConfirmaPedido, { 'auth': this.auth, 'user': this.user, 'pedido': this.pedido, 'endereco': enderecoPedido, 'idEnterprise': this.idEnterprise })
   }
 }

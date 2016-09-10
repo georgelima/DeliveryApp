@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 
 export class OrderService { 
   constructor(public http: Http){}
-  private url = 'http://192.168.1.2:3000/api/order/';
+  private url = 'http://192.168.1.9:3000/api/order/';
 
   changeStatusOrder(idOrder: string, status: any) {
     return this.http.put(this.url + idOrder, status).map((res: Response) => {

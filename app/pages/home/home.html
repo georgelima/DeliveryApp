@@ -12,7 +12,7 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content *ngIf="orders">
 	<ion-refresher (ionRefresh)="atualizaPedidos($event)">
 		<ion-refresher-content 
 			pullingIcon="arrow-dropdown"

@@ -5,9 +5,9 @@
 <div class="row">
  <div class="col s12">
     <ul class="collapsible popout" data-collapsible="accordion">
-      <li *ngFor="let order of orders; let i = index">
+      <li *ngFor="let order of (orders | ordenaListaPorData); let i = index">
         <div class="collapsible-header">
-          <i class="material-icons">speaker_notes</i>{{ order.enterprise.name + ' - ' + (order.totalPrice | currency:'BRL':true) }}
+          <i class="material-icons">speaker_notes</i>{{ order.enterprise.name + ' - ' + (order.totalPrice | currency:'BRL':true) + ' - ' + 'Data: ' + (order.createdAt | formataData) }}
           <span class="red-text text-darken-4" *ngIf="order.status == 'Processando'"><strong> - Status:   Processando</strong></span>
           <span class="purple-text text-darken-4" *ngIf="order.status == 'Preparando'"><strong> - Status:   Preparando</strong></span>
           <span class="orange-text text-darken-4" *ngIf="order.status == 'Saiu para entrega'"><strong> - Status:   Saiu para entrega</strong></span>
@@ -17,11 +17,11 @@
           <div>
             <span style="margin: 10px" *ngFor="let item of order.items"> {{ item.name  }} <br></span>
             <div style="margin: 10px">
-              <button class="btn btn-small purple darken-2" (click)="openModal()" >Ver Endereço</button>
-              <button class="btn btn-small green darken-3" (click)="changeStatus(order)" >Enviar</button>
+              <button class="btn btn-small purple darken-2" (click)="openModal(order._id)" >Ver Endereço</button>
+              <button *ngIf="order.status !== 'Finalizado'" class="btn btn-small green darken-3" (click)="changeStatus(order)" >Enviar</button>
             </div>
 
-            <div id="modal1" class="modal">
+            <div id="{{order._id}}" class="modal">
               <div class="modal-content">
                 <h4>Endereço: </h4>
                 <p>

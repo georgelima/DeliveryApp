@@ -18,6 +18,8 @@ export class ConfirmaPedido {
   public valores:any[];
   public valorTotal: number;
 
+  public flag: boolean = false;
+
   constructor(public modalCtrl: ModalController, public toastCtrl: ToastController, public loadCtrl: LoadingController ,public enterpriseServ: EnterpriseService, public params: NavParams, public navCtrl: NavController){
     this.auth = params.get("auth");
     this.user = params.get("user");
@@ -33,6 +35,8 @@ export class ConfirmaPedido {
     this.valorTotal = this.valores.reduce((previous, current, i, array) => {
       return previous + current;
     }, 0);
+    
+    this.flag = true;
 
   }
 

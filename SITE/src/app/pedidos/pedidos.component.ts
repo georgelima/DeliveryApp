@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { OrderService } from '../services/order.service';
 import { Enterprise } from '../empresa';
+import { SortListPipe } from '../pipes/orderByData';
+import { FormatDataPipe } from '../pipes/formataData';
 
 declare var io: any;
 declare var $: any;
@@ -8,7 +10,8 @@ declare var Materialize: any;
 
 @Component({
   templateUrl: './pedidos.component.html',
-  providers: [OrderService]
+  providers: [OrderService],
+  pipes: [SortListPipe, FormatDataPipe]
 })
 
 export class PedidosComponent {
@@ -18,8 +21,10 @@ export class PedidosComponent {
   public socket: any;
   public itens: any[];
 
+  public showButtonStatus: boolean = true;
+
   constructor(public entOrder: OrderService){
-    this.socket = io('http://192.168.1.2:3000/');
+    this.socket = io('http://192.168.1.9:3000/');
 
     this.socket.on('conn', (data: any) => {
       console.log(data);
@@ -41,6 +46,7 @@ export class PedidosComponent {
     this.orders = [];
     this.entOrder.getOrders().subscribe((data) => {
       this.orders = data;
+      console.log(data);
       this.showList = true;
     });
   }
@@ -55,12 +61,26 @@ export class PedidosComponent {
     this.i++;
   }
 
-  openModal(){
-    $('#modal1').openModal();
+  openModal(_id: string){
+    $('#' + _id).openModal();
   }
 
   changeStatus(order: any){
-    this.entOrder.changeStatusOrder(order._id, { status: 'Preparando' }).subscribe((data: any) => {
+    let status: any = order.status;
+    let nextStatus: any;
+
+    if (status === "Processando"){
+      nextStatus = "Preparando";
+    }
+    if (status === "Preparando"){
+      nextStatus = "Saiu para entrega";
+    }
+    if (status === "Saiu para entrega"){
+      nextStatus = "Finalizado";
+    }
+    
+    
+    this.entOrder.changeStatusOrder(order._id, { status: nextStatus }).subscribe((data: any) => {
       this.carregaLista();
     });
   }

@@ -77,6 +77,7 @@ module.exports = function(app) {
 		let erros = req.asyncValidationErrors().then(() => {
 			
 			Order.findByIdAndUpdate(idOrder, {$set: { status }}).exec().then((data) => {
+				app.get('io').emit('changeStatus', { _id: data._id });
 				res.status(202).json(data);
 			}).catch((err) => {
 				res.status(404).json(err);

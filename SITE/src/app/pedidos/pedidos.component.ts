@@ -36,7 +36,7 @@ export class PedidosComponent {
       Materialize.toast($toastContent, 4000);
     });
 
-    this.carregaLista();
+    this.carregaLista(); // TESTANDO BRANCH RC5
 
     console.log(this.orders);
   }

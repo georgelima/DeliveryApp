@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES, ActivatedRoute ,Router } from '@angular/router';
+import { ActivatedRoute ,Router } from '@angular/router';
 import { EnterpriseService } from '../services/enterprise.service';
 import { Enterprise } from '../empresa';
 
@@ -9,9 +9,7 @@ declare var $: any;
 declare var Materialize: any;
 
 @Component({
-  templateUrl: './detalhes.component.html',
-  providers: [EnterpriseService],
-  directives: [ROUTER_DIRECTIVES]
+  templateUrl: './detalhes.component.html'
 })
 
 export class DetalhesEmpresaComponent {

@@ -2,14 +2,11 @@ import { Component } from '@angular/core';;
 import { EnterpriseService } from '../services/enterprise.service';
 import { IonicService } from '../services/ionic.service';
 import { Enterprise } from '../empresa';
-import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import 'rxjs/add/operator/subscribeOn';
 
 @Component({
-  templateUrl: './home.component.html',
-  providers: [EnterpriseService, IonicService],
-  directives: [ROUTER_DIRECTIVES]
+  templateUrl: './home.component.html'
 })
 
 export class HomeComponent {

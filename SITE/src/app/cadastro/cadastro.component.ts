@@ -8,8 +8,7 @@ declare var Materialize: any;
 declare var $: any;
 
 @Component({
-  templateUrl: './cadastro.component.html',
-  providers: [EnterpriseService]
+  templateUrl: './cadastro.component.html'
 })
 
 export class CadastroComponent {

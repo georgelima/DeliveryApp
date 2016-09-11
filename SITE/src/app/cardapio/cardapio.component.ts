@@ -2,15 +2,12 @@ import { Component } from '@angular/core';
 import { EnterpriseService } from '../services/enterprise.service';
 import { ActivatedRoute } from '@angular/router';
 import { Enterprise } from '../empresa';
-import { FORM_DIRECTIVES } from '@angular/forms';
 
 declare var $: any;
 declare var Materialize: any;
 
 @Component({
-  templateUrl: './cardapio.component.html',
-  providers: [EnterpriseService],
-  directives: [FORM_DIRECTIVES]
+  templateUrl: './cardapio.component.html'
 })
 
 export class CardapioComponent {

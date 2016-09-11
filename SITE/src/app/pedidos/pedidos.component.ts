@@ -9,9 +9,7 @@ declare var $: any;
 declare var Materialize: any;
 
 @Component({
-  templateUrl: './pedidos.component.html',
-  providers: [OrderService],
-  pipes: [SortListPipe, FormatDataPipe]
+  templateUrl: './pedidos.component.html'
 })
 
 export class PedidosComponent {
@@ -36,7 +34,7 @@ export class PedidosComponent {
       Materialize.toast($toastContent, 4000);
     });
 
-    this.carregaLista(); // TESTANDO BRANCH RC5
+    this.carregaLista();
 
     console.log(this.orders);
   }

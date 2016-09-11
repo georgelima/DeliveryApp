@@ -1,5 +1,5 @@
 <h4 class="center">Cadastrar Empresa</h4>
-<form #formCadastro="ngForm" (submit)="cadastrar($event)">
+<form (submit)="cadastrar($event)">
   <div class="row">
     <div class="input-field col s12">
       <input type="text" id="nome" class="validate" [(ngModel)]="enterprise.name" name="name"/>

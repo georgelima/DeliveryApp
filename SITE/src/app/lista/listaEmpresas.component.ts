@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { EnterpriseService } from '../services/enterprise.service';
-import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import 'rxjs/add/operator/subscribeOn';
 
@@ -8,9 +7,7 @@ declare var Materialize: any;
 declare var $: any;
 
 @Component({
-  templateUrl: './listaEmpresas.component.html',
-  providers: [EnterpriseService],
-  directives: [ROUTER_DIRECTIVES]
+  templateUrl: './listaEmpresas.component.html'
 })
 
 export class ListarEmpresasComponent{

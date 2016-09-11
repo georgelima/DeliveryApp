@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 // COMPONENTES
 import { AppComponent } from './app.component';
@@ -27,7 +28,8 @@ import { FormatDataPipe } from './pipes/formataData';
 	imports: [
 		BrowserModule,
 		FormsModule,
-		routing
+		routing,
+		HttpModule
 	],
 	declarations: [ 
 		AppComponent, 
